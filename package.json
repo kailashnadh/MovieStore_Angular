@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build --aot --target=production"
   },
   "private": true,
   "dependencies": {
@@ -16,9 +17,12 @@
     "@angular/compiler": "~8.1.3",
     "@angular/core": "~8.1.3",
     "@angular/forms": "~8.1.3",
+    "@angular/http": "^7.2.15",
     "@angular/platform-browser": "~8.1.3",
     "@angular/platform-browser-dynamic": "~8.1.3",
     "@angular/router": "~8.1.3",
+    "@ng-bootstrap/ng-bootstrap": "^5.1.0",
+    "angular-confirmation-popover": "^4.2.1",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"

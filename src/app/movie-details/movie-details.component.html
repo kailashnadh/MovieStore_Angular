@@ -1,0 +1,141 @@
+<div class="row justify-content-center m-3">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <div *ngIf="loginError" class="alert alert-danger" role="alert">
+                    {{ loginError }}
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <div class="col-sm-8">
+        <div class="card">
+            <div class="card-header">
+                <h1>{{movies.movieName}}</h1>
+                <app-rating-stars [thisRating]="movies.movieRating"></app-rating-stars>
+            </div>
+            <div class="card-body text-center">
+                <h4>{{movies.movieDirector}}</h4>
+                <h4>{{movies.movieYear}}</h4>
+                <h4>{{movies.movieRating}}</h4>
+                <h4>{{movies.movieType}}</h4>
+            </div>
+            <div class="card-footer text-center">
+                <a (click)="showUpdate()" class="btn btn-primary" style="margin: 10px">Update</a>
+                <a class="btn btn-primary" (click)="back()" style="margin: 10px">Back</a>
+                <!-- <a class="btn btn-primary" asp-action="edit" asp-controller="home" asp-route-id="@Model.Student.Id" style="margin: 10px">Edit</a> -->
+                <!-- <a href="#" class="btn btn-danger" style="margin: 10px">Delete</a> -->
+                <button class="btn btn-danger" mwlConfirmationPopover [popoverTitle]="popoverTitle"
+                    [popoverMessage]="popoverMessage" placement="left" (confirm)="deletemovie(movies._id)"
+                    (cancel)="cancelclicked=true">Delete</button>
+            </div>
+
+
+        </div>
+
+        <div *ngIf="update" class="card">
+            <div class="card-body text-center">
+                <app-update *ngIf="movies" [movie]="movies" [showform]="showform"></app-update>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card card-primary review-card">
+            <h2 class="card-title">Customer reviews</h2>
+            <div *ngFor="let review of movies.reviews | mostRecentFirst" class="row review">
+                <div class="col-12 no-gutters review-header">
+                    <app-rating-stars [thisRating]="review.rating"></app-rating-stars>
+                    <span class="reviewAuthor">{{ review.author }}</span>
+                    <small class="reviewTimestamp">{{ review.createdOn }}</small>
+                </div>
+                <div class="col-12">
+                    <p [innerHTML]="review.reviewText | htmlLineBreaks"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <form (ngSubmit)="onReviewSubmit()">
+        <div *ngIf="modalError" class="alert alert-danger" role="alert">{{ modalError }}</div>
+        <div *ngIf="modalAdded" class="alert alert-success" role="alert">{{ modalAdded }}</div>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Add Review</h4>
+            <button type="button" class="close" aria-label="Close" (click)="close()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="modal-body">
+                <input name="author" hidden [(ngModel)]= "newReview.author"/>
+
+            <div class="form-group">
+
+                <div class="col-xs-12 ">
+                    <label for="rating" class="col-xs-10 col-sm-2 control-label"><b>Rating</b></label>
+                    <select class="browser-default custom-select" [(ngModel)]="newReview.rating" name="rating">
+                        <option selected>select</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                        <option value="4">Four</option>
+                        <option value="5">Five</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <label for="review" class="col-sm-2 control-label"><b>Review</b></label>
+                    <div class="col-sm-12">
+                        <textarea id="review" [(ngModel)]="newReview.reviewText" name="review" rows="5"
+                            required="required"
+                            class="form-control ng-pristine ng-invalid ng-invalid-required"></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="close()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </div>
+    </form>
+</ng-template>
+<div class="row">
+    <div class="col-12">
+        <div class="card card-primary review-card">
+            <div class="card-block" [ngSwitch]="isLoggedIn()">
+                <button (click)="formVisible=true" class="btn btn-primary float-right" *ngSwitchCase="true" (click)="open(content)">Add review</button>
+                <a routerLink="/login" class="btn btn-primary float-right" *ngSwitchDefault>Log in to add review</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Add Review</button> -->
+<!-- <div class="row">
+    <div class="col-12">
+        <div class="card card-primary review-card">
+            <div class="card-block"><a href="/location/{{location._id}}=/review/new"
+                    class="btn btn-primary float-right">Add review</a>
+                <h2 class="card-title">Customer reviews</h2>
+                <div *ngFor="let review of location.reviews" class="row review">
+                    <div class="col-12 no-gutters review-header">
+                        <span class="reviewAuthor">{{ review.author }}</span>
+                        <small class="reviewTimestamp">{{ review.createdOn }}</small>
+                    </div>
+                    <div class="col-12">
+                            <p [innerHTML]="review.reviewText | htmlLineBreaks"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

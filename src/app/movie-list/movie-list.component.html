@@ -1,0 +1,28 @@
+
+<div class="error">{{message}}</div>
+<div class="card-deck" >
+        
+        <div class="col-md-4 mb-4" style="text-align: center" *ngFor="let m of movie">
+            <div class="card-header">
+                <a style="color: green;" routerLink="movie/{{m._id}}">{{ m.movieName}}</a>
+                <app-rating-stars [thisRating]="m.movieRating"></app-rating-stars>
+                <!-- <small>&nbsp;
+                        <i class="fa fa-star{{ m.movieRating < 1 ? '-o' : ''}}"></i>
+                        <i class="fa fa-star{{ m.movieRating < 2 ? '-o' : ''}}"></i>
+                        <i class="fa fa-star{{ m.movieRating < 3 ? '-o' : ''}}"></i>
+                        <i class="fa fa-star{{ m.movieRating < 4 ? '-o' : ''}}"></i>
+                        <i class="fa fa-star{{ m.movieRating < 5 ? '-o' : ''}}"></i>
+                </small> -->
+                <!-- <h2 style="color: green; align-content: center">{{ m.movieName}}</h2> -->
+            </div>
+            <div class="card-footer text-center">
+                <h3>{{m.movieDirector}}</h3>
+                <h3>{{m.movieYear}}</h3>
+                <h3>{{m.movieRating}}</h3>
+                <h3>{{m.movieType}}</h3>
+            </div>
+        </div>
+    
+</div>
+
+    

@@ -1,0 +1,51 @@
+<form (ngSubmit)="addMovie()">
+        <div *ngIf="formError" class="alert alert-danger" role="alert">{{ formError }}</div>
+        <div *ngIf="formAdded" class="alert alert-success" role="alert">{{ formAdded }}</div>
+    <div class="form-group row">
+        <label for="movie-name" class="col-sm-2 col-form-label">Movie Name</label>
+        <div class="col-sm-10">
+            <input class="form-control" name="movie-name" [(ngModel)]="movie.movieName" placeholder="Movie Name" />
+            <span class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="director-name" class="col-sm-2 col-form-label">Director</label>
+        <div class="col-sm-10">
+            <input class="form-control" name="director-name" [(ngModel)]="movie.movieDirector"
+                placeholder="Director Name" />
+            <span class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="movie-year" class="col-sm-2 col-form-label">Movie Year</label>
+        <div class="col-sm-10">
+            <input class="form-control" name="movie-year" [(ngModel)]="movie.movieYear" placeholder="Movie Year" />
+            <span class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="rating" class="col-sm-2 col-form-label">Rating</label>
+        <div class="col-sm-10">
+                <select [(ngModel)]="movie.movieRating" id="rating" name="rating" class=”form-control”>
+                        <option [ngValue]="5">5</option>
+                        <option [ngValue]="4">4</option>
+                        <option [ngValue]="3">3</option>
+                        <option [ngValue]="2">2</option>
+                        <option [ngValue]="1">1</option>
+                </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="movie-type">Movie Type</label>
+        <div class="col-sm-10">
+            <input class="form-control" placeholder="Movie Type" name="movie-type" [(ngModel)]="movie.movieType" />
+            <span class="text-danger"></span>
+        </div>
+    </div>
+
+
+
+    <div class="form-group row">
+        <button type="submit" class="btn btn-primary">create</button>
+    </div>
+</form>
